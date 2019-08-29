@@ -3,8 +3,12 @@
         <div>
             <h1>ayyylmao</h1>
             <button
-            @click='getPokemon(getRandomInt())'>touch me</button>
-            <img :src="frontSprite"/>
+            @click='getFrontSprite(getRandomInt())'>frontal view</button>
+            <img class='silhouette' :src="frontSprite"/>
+
+            <button
+            @click='getBackSprite(getRandomInt())'>booty view</button>
+            <img class='silhouette' :src="backSprite"/>
         </div>
     </main>
 </template>
@@ -14,33 +18,33 @@ import axios from "axios";
 
 export default {
   name: 'Pokemon',
-  data: async () => {
+  data () {
       return {
-          frontSprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/173.png"
+          frontSprite: '',
+          backSprite: '',
+          randomInt: 0
       }
   },
-  async mounted() {
-    //   let frontSprite = ''
-      await this.getPokemon(this.getRandomInt());
-  },
+//   mounted() {
+//     this.getFrontSprite(this.getRandomInt())
+//   },
   methods: { 
       getRandomInt() {
-          console.log('hi', this.frontSprite)
           return Math.floor(Math.random() * Math.floor(251))
       },
-      getPokemon : async(id) => {
-        // console.log('async', this.frontSprite)
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
-        await console.log(response.data.sprites.front_default)
-        this.frontSprite = await response.data.sprites.front_default
-        console.log('typeof front', typeof(frontSprite))
-        // return frontSprite
-        // console.log(this.frontSprite)
+      getFrontSprite(id) {
+        axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+        .then(response =>
+            (this.frontSprite = response.data.sprites.front_default));
+            console.log(this.frontSprite)
       },
-      anothaOne(frontURL) {
-          console.log('typeof front in anotha', typeof(frontURL))
-          this.frontSprite = frontURL
-          console.log('anothaone', this.frontSprite)
+      getBackSprite(id) {
+        axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+        .then(response =>
+            (this.backSprite = response.data.sprites.back_default));
+            console.log(this.backSprite)
       }
   }
 }
