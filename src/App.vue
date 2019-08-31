@@ -29,6 +29,10 @@ export default {
     filter: contrast(0) brightness(0);
 }
 
+.failText {
+  font-size: 6rem;
+  color: #000;
+}
 // Text meant only for screen readers.
 .all-access {
 	clip-path: rect(1px, 1px, 1px, 1px);

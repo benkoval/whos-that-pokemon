@@ -14,11 +14,16 @@
             type="search" 
             placeholder="Guess"/>
             <button
-            :disabled='userGuess != frontName'
-            @click.prevent='getFrontSprite(getRandomInt())'
+            @click.prevent='correctOrNah(userGuess)'
             id="search-button"
             type="submit"><span class="all-access">Submit your </span>Guess</button>
         </form>
+
+        <div 
+        v-if="incorrectGuess"
+        class='failDiv'>
+          <h2>Guess again!</h2>
+        </div>
         
         <!-- <input
             id='inputGuess'
@@ -47,8 +52,8 @@ export default {
           frontSprite: '',
           frontName: '',
           userGuess: '',
-        //   backSprite: '',
-          randomInt: 0
+          randomInt: 0,
+          incorrectGuess: false,
       }
   },
   mounted() {
@@ -65,6 +70,16 @@ export default {
             (this.frontName = response.data.name,
             this.frontSprite = response.data.sprites.front_default));
             console.log(this.frontName)
+      },
+      correctOrNah(guess) {
+        if (guess != this.frontName) {
+          this.incorrectGuess = true
+        }
+        else {
+          this.getFrontSprite(this.getRandomInt());
+          this.incorrectGuess = false
+        }
+
       }
   }
 }
