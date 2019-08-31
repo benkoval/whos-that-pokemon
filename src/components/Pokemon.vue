@@ -10,13 +10,13 @@
             @keyup.enter='clearInput()'
             v-model='userGuess'
             id="guess-field" 
-            class="search-input" 
+            class="guess-input" 
             name="guess-field" 
             type="search" 
             placeholder="Guess that Pokémon!"/>
             <button
-            @click.prevent='correctOrNah(userGuess), clearInput()'
-            id="search-button"
+            @click.prevent='correctOrNah(userGuess)'
+            id="guess-button"
             type="submit"><span class="all-access">Submit your guess</span>GO</button>
         </form>
 
@@ -73,7 +73,10 @@ export default {
             console.log(this.frontName)
       },
       correctOrNah(guess) {
-        if (guess != this.frontName) {
+        this.clearInput()
+
+        if (guess.toLowerCase() != this.frontName) {
+          this.clearInput()
           this.incorrectGuess = true
         }
         else {
@@ -82,8 +85,8 @@ export default {
         }
       },
       clearInput() {
-        const form = document.querySelector('#guess-form');
-        form.reset();
+        const input = document.querySelector('#guess-field');
+        input.value = '';
       }
   }
 }
