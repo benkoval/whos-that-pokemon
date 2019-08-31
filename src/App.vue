@@ -27,6 +27,7 @@ export default {
 
 .silhouette {
     filter: contrast(0) brightness(0);
+    pointer-events: none;
 }
 
 .failText {

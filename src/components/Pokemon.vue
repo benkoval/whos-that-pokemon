@@ -7,6 +7,7 @@
           <form class="input-container" id="guess-form">
             <label class="all-access" for="guess-field">Type your guess here.</label>
             <input
+            @keyup.enter='clearInput()'
             v-model='userGuess'
             id="guess-field" 
             class="search-input" 
@@ -72,6 +73,8 @@ export default {
             console.log(this.frontName)
       },
       correctOrNah(guess) {
+        this.clearInput()
+
         if (guess != this.frontName) {
           this.incorrectGuess = true
         }
@@ -79,7 +82,10 @@ export default {
           this.getFrontSprite(this.getRandomInt());
           this.incorrectGuess = false
         }
-
+      },
+      clearInput() {
+        const form = document.querySelector('form');
+        form.reset();
       }
   }
 }
