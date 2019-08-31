@@ -13,11 +13,11 @@
             class="search-input" 
             name="guess-field" 
             type="search" 
-            placeholder="Guess"/>
+            placeholder="Guess that Pokémon!"/>
             <button
-            @click.prevent='correctOrNah(userGuess)'
+            @click.prevent='correctOrNah(userGuess), clearInput()'
             id="search-button"
-            type="submit"><span class="all-access">Submit your </span>Guess</button>
+            type="submit"><span class="all-access">Submit your guess</span>GO</button>
         </form>
 
         <div 
@@ -73,8 +73,6 @@ export default {
             console.log(this.frontName)
       },
       correctOrNah(guess) {
-        this.clearInput()
-
         if (guess != this.frontName) {
           this.incorrectGuess = true
         }
@@ -84,7 +82,7 @@ export default {
         }
       },
       clearInput() {
-        const form = document.querySelector('form');
+        const form = document.querySelector('#guess-form');
         form.reset();
       }
   }
