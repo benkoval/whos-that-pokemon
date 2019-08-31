@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -23,5 +23,18 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.silhouette {
+    filter: contrast(0) brightness(0);
+}
+
+// Text meant only for screen readers.
+.all-access {
+	clip-path: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    width: 1px;
+	overflow: hidden;
+    position: absolute !important;
 }
 </style>
