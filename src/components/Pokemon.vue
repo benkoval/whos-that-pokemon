@@ -4,10 +4,9 @@
             <h1>Who's that Pokémon?</h1>
             <img class='silhouette' :src="frontSprite"/>
 
-          <form class="input-container" id="guess-form">
+          <form class="input-container" id="guess-form" onsubmit="return false;">
             <label class="all-access" for="guess-field">Type your guess here.</label>
             <input
-            @keyup.enter='clearInputOnSubmit()'
             v-model='userGuess'
             id="guess-field" 
             class="guess-input" 
@@ -15,7 +14,7 @@
             type="search" 
             placeholder="Guess"/>
             <button
-            @click.prevent='correctOrNah(userGuess), clearInputOnClick()'
+            @click='correctOrNah(userGuess)'
             id="guess-button"
             type="submit"><span class="all-access">Submit your guess</span>GO</button>
         </form>
@@ -55,6 +54,8 @@ export default {
           userGuess: '',
           randomInt: 0,
           incorrectGuess: false,
+          min: 1,
+          max: 151
       }
   },
   mounted() {
@@ -62,39 +63,27 @@ export default {
   },
   methods: { 
       getRandomInt() {
-          return Math.floor(Math.random() * Math.floor(151))
+          return Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
       },
       getFrontSprite(id) {
         axios
         .get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
         .then(response =>
-            (this.frontName = response.data.name,
+            (this.frontName = response.data.name.replace(/\-.*/, ''),
             this.frontSprite = response.data.sprites.front_default));
-            // console.log(this.frontName)
       },
-      clearInputOnSubmit() {
-        document.querySelector('#guess-form').reset();
-        document.querySelector('#guess-field').value = '';
-      },
-      clearInputOnClick() {
-        document.querySelector('#guess-form').reset();
-        document.querySelector('#guess-field').value = '';
+      clearInput() {
+        this.userGuess = '';
       },
       correctOrNah(guess) {
-        // this.clearInput()
-        // const input = document.querySelector('#guess-field');
-        // console.log('before', input.value);
-        // input.textContent = '';
-        // console.log('after', input.value);
         if (guess.toLowerCase() != this.frontName) {
           this.incorrectGuess = true
-          console.log('after in if', document.querySelector('#guess-field').value);
         }
         else {
           this.getFrontSprite(this.getRandomInt());
           this.incorrectGuess = false
-          console.log('after in if', document.querySelector('#guess-field').value);
         }
+        this.clearInput();
       }
   }
 }
