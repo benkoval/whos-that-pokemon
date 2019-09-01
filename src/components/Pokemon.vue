@@ -2,7 +2,15 @@
     <main>
         <div>
             <h1>Who's that Pokémon?</h1>
-            <img class='silhouette' :src="frontSprite"/>
+            <img 
+            :class="{ silhouette: silhouette }"
+            :src="frontSprite"/>
+            
+            <div 
+            v-if="!silhouette"
+            class='failDiv'>
+              <h2>It's {{frontName}}!</h2>
+            </div>
 
           <form class="input-container" id="guess-form" onsubmit="return false;">
             <label class="all-access" for="guess-field">Type your guess here.</label>
@@ -14,9 +22,14 @@
             type="search" 
             placeholder="Guess"/>
             <button
-            @click='correctOrNah(userGuess)'
+            @click.prevent='correctOrNah(userGuess)'
             id="guess-button"
             type="submit"><span class="all-access">Submit your guess</span>GO</button>
+            <button
+            @click.prevent='giveUp()'
+            type='submit'>
+            I give up!
+            </button>
         </form>
 
         <div 
@@ -54,6 +67,7 @@ export default {
           userGuess: '',
           randomInt: 0,
           incorrectGuess: false,
+          silhouette: true,
           min: 1,
           max: 151
       }
@@ -66,6 +80,7 @@ export default {
           return Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
       },
       getFrontSprite(id) {
+        this.silhouette = true;
         axios
         .get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
         .then(response =>
@@ -84,6 +99,9 @@ export default {
           this.incorrectGuess = false
         }
         this.clearInput();
+      },
+      giveUp() {
+        this.silhouette = false
       }
   }
 }
