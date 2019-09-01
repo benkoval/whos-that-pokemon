@@ -7,15 +7,15 @@
           <form class="input-container" id="guess-form">
             <label class="all-access" for="guess-field">Type your guess here.</label>
             <input
-            @keyup.enter='clearInput()'
+            @keyup.enter='clearInputOnSubmit()'
             v-model='userGuess'
             id="guess-field" 
             class="guess-input" 
             name="guess-field" 
             type="search" 
-            placeholder="Guess that Pokémon!"/>
+            placeholder="Guess"/>
             <button
-            @click.prevent='correctOrNah(userGuess)'
+            @click.prevent='correctOrNah(userGuess), clearInputOnClick()'
             id="guess-button"
             type="submit"><span class="all-access">Submit your guess</span>GO</button>
         </form>
@@ -70,23 +70,31 @@ export default {
         .then(response =>
             (this.frontName = response.data.name,
             this.frontSprite = response.data.sprites.front_default));
-            console.log(this.frontName)
+            // console.log(this.frontName)
+      },
+      clearInputOnSubmit() {
+        document.querySelector('#guess-form').reset();
+        document.querySelector('#guess-field').value = '';
+      },
+      clearInputOnClick() {
+        document.querySelector('#guess-form').reset();
+        document.querySelector('#guess-field').value = '';
       },
       correctOrNah(guess) {
-        this.clearInput()
-
+        // this.clearInput()
+        // const input = document.querySelector('#guess-field');
+        // console.log('before', input.value);
+        // input.textContent = '';
+        // console.log('after', input.value);
         if (guess.toLowerCase() != this.frontName) {
-          this.clearInput()
           this.incorrectGuess = true
+          console.log('after in if', document.querySelector('#guess-field').value);
         }
         else {
           this.getFrontSprite(this.getRandomInt());
           this.incorrectGuess = false
+          console.log('after in if', document.querySelector('#guess-field').value);
         }
-      },
-      clearInput() {
-        const input = document.querySelector('#guess-field');
-        input.value = '';
       }
   }
 }
