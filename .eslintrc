@@ -1,0 +1,17 @@
+{
+    "extends": [
+        "airbnb-base",
+        "plugin:vue/recommended"
+    ],
+    "plugins": [
+        "import"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+        "linebreak-style": "off"
+    },
+    "env": {
+        "browser": true,
+        "es6": true
+    }
+ } 
