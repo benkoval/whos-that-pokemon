@@ -1,18 +1,21 @@
 <template>
     <main>
         <div>
-            <h1>Who's that Pokémon?</h1>
-            <img 
-            :class="{ silhouette: silhouette }"
-            :src="frontSprite"/>
-            
+            <h1 v-if='silhouette'>Who's that Pokémon?</h1>
             <div 
             v-if="!silhouette"
             class='failDiv'>
-              <h2>It's {{frontName}}!</h2>
+              <h1>It's <span class='uppercase'>{{frontName}}!</span></h1>
             </div>
+            <img 
+            class='img'
+            :class="{ silhouette: silhouette, jackInTheBox: jackInTheBox }"
+            :src="frontSprite"/>
 
-          <form class="input-container" id="guess-form" onsubmit="return false;">
+          <form
+          class="input-container" 
+          id="guess-form" 
+          onsubmit="return false">
             <label class="all-access" for="guess-field">Type your guess here.</label>
             <input
             v-model='userGuess'
@@ -22,12 +25,14 @@
             type="search" 
             placeholder="Guess"/>
             <button
+            class='uppercase'
             @click.prevent='correctOrNah(userGuess)'
             id="guess-button"
-            type="submit"><span class="all-access">Submit your guess</span>GO</button>
+            type="submit"><span class="all-access">Submit your guess</span>Go</button>
             <button
             @click.prevent='giveUp()'
-            type='submit'>
+            type='submit'
+            class='surrenderButton'>
             I give up!
             </button>
         </form>
@@ -68,8 +73,9 @@ export default {
           randomInt: 0,
           incorrectGuess: false,
           silhouette: true,
+          jackInTheBox: false,
           min: 1,
-          max: 151
+          max: 300
       }
   },
   mounted() {
@@ -77,10 +83,12 @@ export default {
   },
   methods: { 
       getRandomInt() {
-          return Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
+          let randInt = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
+          return randInt;
       },
       getFrontSprite(id) {
         this.silhouette = true;
+        this.jackInTheBox = true;
         axios
         .get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
         .then(response =>
@@ -89,6 +97,7 @@ export default {
       },
       clearInput() {
         this.userGuess = '';
+        this.jackInTheBox = false;
       },
       correctOrNah(guess) {
         if (guess.toLowerCase() != this.frontName) {
