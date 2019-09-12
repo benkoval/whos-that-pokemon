@@ -31,7 +31,7 @@
             type="submit"><span class="all-access">Submit your guess</span>Go</button>
           <div class='surrenderContainer'>
             <button
-            @click.prevent='giveUp()'
+            @click.prevent='displaySpriteName()'
             type='submit'
             class='surrenderButton'>
             I give up!
@@ -81,18 +81,15 @@ export default {
       }
   },
   mounted() {
-    this.getFrontSprite(this.getRandomInt())
+    this.getFrontSprite();
   },
   methods: { 
-      getRandomInt() {
-          let randInt = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
-          return randInt;
-      },
-      getFrontSprite(id) {
+      getFrontSprite() {
+        let randInt = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
         this.silhouette = true;
         this.jackInTheBox = true;
         axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+        .get(`https://pokeapi.co/api/v2/pokemon/${randInt}/`)
         .then(response =>
             (this.frontName = response.data.name.replace(/\-.*/, ''),
             this.frontSprite = response.data.sprites.front_default));
@@ -106,14 +103,14 @@ export default {
           this.incorrectGuess = true
         }
         else {
-          this.getFrontSprite(this.getRandomInt());
-          this.incorrectGuess = false
+          this.displaySpriteName();
         }
         this.clearInput();
       },
-      giveUp() {
+      displaySpriteName() {
+        this.incorrectGuess = false
         this.silhouette = false
-        setTimeout(() => this.silhouette = true, 2000);
+        setTimeout(() => this.getFrontSprite(), 2000);
       }
   }
 }

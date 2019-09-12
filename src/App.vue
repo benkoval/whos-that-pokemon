@@ -35,7 +35,7 @@ export default {
 }
 .uppercase {
   text-transform: uppercase;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 // .img {
 //   height: 40vh;
