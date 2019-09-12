@@ -29,12 +29,14 @@
             @click.prevent='correctOrNah(userGuess)'
             id="guess-button"
             type="submit"><span class="all-access">Submit your guess</span>Go</button>
+          <div class='surrenderContainer'>
             <button
             @click.prevent='giveUp()'
             type='submit'
             class='surrenderButton'>
             I give up!
             </button>
+          </div>
         </form>
 
         <div 
@@ -111,6 +113,7 @@ export default {
       },
       giveUp() {
         this.silhouette = false
+        setTimeout(() => this.silhouette = true, 2000);
       }
   }
 }

@@ -26,14 +26,20 @@ export default {
 }
 
 .surrenderButton {
-  flex-flow: column wrap;
+  display: block;
+  margin: auto;
+}
+
+.surrenderContainer {
+  display: flex;
 }
 .uppercase {
   text-transform: uppercase;
+  margin-bottom: 60px;
 }
-.img {
-  height: 40vh;
-}
+// .img {
+//   height: 40vh;
+// }
 .silhouette {
     filter: contrast(0) brightness(0);
     pointer-events: none;
