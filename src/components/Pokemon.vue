@@ -77,7 +77,7 @@ export default {
           silhouette: true,
           jackInTheBox: false,
           min: 1,
-          max: 300
+          max: 151
       }
   },
   mounted() {
