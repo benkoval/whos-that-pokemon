@@ -2,13 +2,11 @@
     <main>
         <div id='pokemon'>
             <h1 class='title' v-if='silhouette'>Who's that Pokémon?</h1>
-            <transition name='jackInTheBox'>
-              <div 
-              v-if="!silhouette"
-              class='failDiv'>
-                <h1 class='title'>It's <span class='uppercase'>{{frontName}}!</span></h1>
-              </div>
-            </transition>
+            <div 
+            v-if="!silhouette"
+            class='failDiv'>
+              <h1 class='title'>It's <span class='uppercase'>{{frontName}}!</span></h1>
+            </div>
             <img 
             class='img'
             :class="{ silhouette: silhouette, jackInTheBox: jackInTheBox }"

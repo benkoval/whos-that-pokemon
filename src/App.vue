@@ -51,10 +51,6 @@ $btnFont: 'VT323', monospace;
 	&:hover {
 		background: #A81000;
 	}
-
-  &:active {
-    translate: 8px;
-  }
 }
 
 .surrenderContainer {
