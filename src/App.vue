@@ -16,18 +16,45 @@ export default {
 </script>
 
 <style lang='scss'>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+@import url(https://fonts.googleapis.com/css?family=VT323);
+$gameFont: 'Press Start 2P', cursive;
+$btnFont: 'VT323', monospace;
+
+#pokemon {
   text-align: center;
+}
+
+.title {
+  font-family: $gameFont;
   color: #2c3e50;
   margin-top: 60px;
 }
-
 .surrenderButton {
-  display: block;
-  margin: auto;
+  font-family: $btnFont;
+	background: #881400;
+	border-bottom: 5px inset rgba(0,0,0,.5);
+	border-left: 5px inset rgba(0,0,0,.5);
+	border-right: 5px inset rgba(255,255,255,.5);
+	border-top: 5px inset rgba(255,255,255,.5);
+	box-sizing: border-box;
+	color: white;
+	cursor: pointer;
+	font-size: 1.8rem;
+	margin: auto;
+	min-width: 150px;
+	padding: .3rem;
+	text-transform: uppercase;
+	
+	&:focus,
+	&:hover {
+		background: #A81000;
+	}
+
+  &:active {
+    translate: 8px;
+  }
 }
 
 .surrenderContainer {
@@ -49,64 +76,6 @@ export default {
   font-size: 6rem;
   color: #000;
 }
-
-@-webkit-keyframes jackInTheBox {
-  from {
-    opacity: 0;
-    -webkit-transform: scale(0.1) rotate(30deg);
-    transform: scale(0.1) rotate(30deg);
-    -webkit-transform-origin: center bottom;
-    transform-origin: center bottom;
-  }
-
-  50% {
-    -webkit-transform: rotate(-10deg);
-    transform: rotate(-10deg);
-  }
-
-  70% {
-    -webkit-transform: rotate(3deg);
-    transform: rotate(3deg);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-}
-
-@keyframes jackInTheBox {
-  from {
-    opacity: 0;
-    -webkit-transform: scale(0.1) rotate(30deg);
-    transform: scale(0.1) rotate(30deg);
-    -webkit-transform-origin: center bottom;
-    transform-origin: center bottom;
-  }
-
-  50% {
-    -webkit-transform: rotate(-10deg);
-    transform: rotate(-10deg);
-  }
-
-  70% {
-    -webkit-transform: rotate(3deg);
-    transform: rotate(3deg);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-}
-
-.jackInTheBox {
-  -webkit-animation-name: jackInTheBox;
-  animation-name: jackInTheBox;
-}
-
 
 // Text meant only for screen readers.
 .all-access {

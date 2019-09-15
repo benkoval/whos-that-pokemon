@@ -1,12 +1,14 @@
 <template>
     <main>
-        <div>
-            <h1 v-if='silhouette'>Who's that Pokémon?</h1>
-            <div 
-            v-if="!silhouette"
-            class='failDiv'>
-              <h1>It's <span class='uppercase'>{{frontName}}!</span></h1>
-            </div>
+        <div id='pokemon'>
+            <h1 class='title' v-if='silhouette'>Who's that Pokémon?</h1>
+            <transition name='jackInTheBox'>
+              <div 
+              v-if="!silhouette"
+              class='failDiv'>
+                <h1 class='title'>It's <span class='uppercase'>{{frontName}}!</span></h1>
+              </div>
+            </transition>
             <img 
             class='img'
             :class="{ silhouette: silhouette, jackInTheBox: jackInTheBox }"
@@ -86,13 +88,13 @@ export default {
   methods: { 
       getFrontSprite() {
         let randInt = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
-        this.silhouette = true;
-        this.jackInTheBox = true;
+        // this.jackInTheBox = true;
         axios
         .get(`https://pokeapi.co/api/v2/pokemon/${randInt}/`)
         .then(response =>
             (this.frontName = response.data.name.replace(/\-.*/, ''),
             this.frontSprite = response.data.sprites.front_default));
+        this.silhouette = true;
       },
       clearInput() {
         this.userGuess = '';
