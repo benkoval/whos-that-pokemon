@@ -42,7 +42,7 @@
         <div 
         v-if="incorrectGuess"
         class='failDiv'>
-          <h2>Guess again!</h2>
+          <h2 class='title'>Guess again!</h2>
         </div>
         
         <!-- <input
