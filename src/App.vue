@@ -27,7 +27,8 @@ $btnFont: 'VT323', monospace;
 }
 
 .title {
-  font-family: $gameFont;
+  font-family: $btnFont;
+  font-size: 3rem;
   color: #2c3e50;
   margin-top: 60px;
 }

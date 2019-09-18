@@ -5,11 +5,11 @@
             <div 
             v-if="!silhouette"
             class='failDiv'>
-              <h1 class='title'>It's <span class='uppercase'>{{frontName}}!</span></h1>
+                <h1 class='title'>It's <span class='uppercase'>{{frontName}}!</span></h1>
             </div>
             <img 
             class='img'
-            :class="{ silhouette: silhouette, jackInTheBox: jackInTheBox }"
+            :class="{ silhouette: silhouette }"
             :src="frontSprite"/>
 
           <form
@@ -75,7 +75,6 @@ export default {
           randomInt: 0,
           incorrectGuess: false,
           silhouette: true,
-          jackInTheBox: false,
           min: 1,
           max: 151
       }
@@ -86,7 +85,6 @@ export default {
   methods: { 
       getFrontSprite() {
         let randInt = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
-        // this.jackInTheBox = true;
         axios
         .get(`https://pokeapi.co/api/v2/pokemon/${randInt}/`)
         .then(response =>
@@ -96,7 +94,6 @@ export default {
       },
       clearInput() {
         this.userGuess = '';
-        this.jackInTheBox = false;
       },
       correctOrNah(guess) {
         if (guess.toLowerCase() != this.frontName) {
